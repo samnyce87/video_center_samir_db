@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une Vidéo{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #333;
+        color: #fff;
+    }
+    </style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center">Ajouter une Vidéo</h1>
+            <div class="card">
+                <div class="card-body">
+                    {{ include('video/_form.html.twig', {'submitButtonText': 'Créer une vidéo'}) }}
+                    <a href="{{ path('app_home') }}" class="btn btn-secondary mt-3">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

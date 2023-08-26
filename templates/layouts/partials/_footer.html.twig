@@ -1,0 +1,18 @@
+<div class="b-example-divider"></div>
+
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link px-2 text-white font-weight-bold">Home</a></li>
+      
+         {% if app.user %}
+         {% if app.user.isVerified %}
+      <li class="nav-item"><a href="{{ path('app_video_create') }}" class="nav-link px-2 text-white font-weight-bold">Créer une Video</a></li>
+      {% endif %}
+      {% endif %}
+      
+      <li class="nav-item"><a href="{{ path('app_account') }}" class="nav-link px-2 text-white font-weight-bold">Contact</a></li>
+    </ul>
+     <p class="text-center text-white"><br>&copy; 2023 Youtube</p>
+  </footer>
+</div>

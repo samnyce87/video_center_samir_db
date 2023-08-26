@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes videos{% endblock %}
+{% block body %}
+
+<style>
+    body {
+        background-color: #333;
+        color: #fff;
+		text-align:center;
+		
+
+		
+    }
+
+	 .video-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+		width: calc(33,33% - 20px);
+		text-align:center;
+		
+    }
+    .video-item {
+         
+        box-sizing: border-box;
+        padding: 30px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+		text-align:center;
+		
+	}
+	
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+		background-color: #f2f2f2;
+		
+    }
+
+	
+	
+</style>
+
+
+  <h1 class="text-center text-danger font-weight-bold mb-5"><u>Bienvenue sur mon site de vidéo center</u></h1>
+   {% include "components/_search_data.html.twig" with {
+    form: form
+} only %}
+
+{% if search == true %}
+						{{ nombreVideos }}
+						video(s) trouvée(s) {{ searchData }}
+					{% endif %}
+
+<div class="container">
+ <div class="video-container">
+ 
+
+  
+
+
+
+   
+   {% for video in pagination  %}
+   
+
+				{% if app.user and video.premiumVideo == 1 and app.user.isVerified %}
+				<div class="col-3">
+			
+					<div>
+						<div>
+							<div>
+								{# <h3>
+									<a href="{{ path('app_video_show', {id: video.id}) }}">{{ video.id }}
+										{{ video.title }}
+									</a>
+								</h3> #}
+								
+								<iframe width="300" height="200" src={{video.videoLink}}></iframe>
+								<h3>{{ video.title|u.truncate(20,'...',false) }}</h3>
+								<p>{{ video.description|u.truncate(25,'...',false) }}</p>
+								<p>Soumis le :
+									{{ video.createdAt ? video.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+								<p>modifié le :{{ video.updatedAt ? video.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
+								<p>Publié par
+									{{video.user.firstname ~" "~ video.user.lastname}}</p>
+									
+								<a href="{{ path('app_video_show', {'id': video.id}) }}">Détails</a>
+								
+								<a href="{{ path('app_video_edit', {'id': video.id}) }}">Editer</a>
+							</div>
+						</div>
+					</div>
+</div>
+
+				{% elseif video.premiumVideo == 0 %}
+				
+					<div class="col-3">
+					
+                
+
+						<div>
+							<div>
+								{# <h3>
+									<a href="{{ path('app_video_show', {id: video.id}) }}">{{ video.id }}
+										{{ video.title }}
+									</a>
+								</h3> #}
+								
+								<iframe width="300" height="200" src={{video.videoLink}}></iframe>
+								<h3>{{ video.title|u.truncate(20,'...',false) }}</h3>
+								<p>{{ video.description|u.truncate(25,'...',false) }}</p>
+								<p>Soumis le :
+									{{ video.createdAt ? video.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+								<p>modifié le :{{ video.updatedAt ? video.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
+								<p>Publié par
+									{{video.user.firstname ~" "~ video.user.lastname}}</p>
+								<a href="{{ path('app_video_show', {'id': video.id}) }}">Détail</a>
+
+								<a href="{{ path('app_video_edit', {'id': video.id}) }}">Editer</a>
+							</div>
+						</div>
+					</div>
+						
+				{% endif %}
+			{% else %}
+
+      <p>Il y a pas de vidéos à afficher</p>
+			{% endfor %}
+
+			</div>
+
+    <div class="pagination">
+
+      {{ knp_pagination_render(pagination, null, {}, {
+   'align': 'center',
+   'size': 'large',
+   'rounded': true,
+}) }}
+	
+</div>
+</div>
+{% endblock %}

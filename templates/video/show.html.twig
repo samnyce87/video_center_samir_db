@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Videos{% endblock %}
+{% block body %}
+<style>
+    body {
+        background-color: #333;
+        color: #fff;
+    }
+    </style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <article class="video-details">
+                <h1 class="video-title">{{ video.title }}</h1>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{ video.videoLink }}" allowfullscreen></iframe>
+                </div>
+                <p class="video-author">Par {{ video.user.firstname ~ ' ' ~ video.user.lastname }}</p>
+                <p class="video-description">Description: {{ video.description }}</p>
+                <p class="video-date">Soumis le {{ video.createdAt|date("d/m/Y H:i") }}</p>
+                <p class="video-date">Dernière modification: {{ video.updatedAt|date("d/m/Y H:i") }}</p>
+
+                {% if app.user and app.user.id == video.user.id %}
+                <button class="btn btn-primary">
+                    <a href="{{ path('app_video_edit', {'id': video.id}) }}" class="btn-link">Editer</a>
+                </button>
+                {% endif %}
+
+                <button class="btn btn-secondary">
+                    <a href="{{ path('app_home') }}" class="btn-link">Retour</a>
+                </button>
+
+                {{ include('video/_delete_form.html.twig') }}
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+ 

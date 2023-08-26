@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'enregistrer{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #333;
+        color: #fff;
+    }
+    </style>
+<div class="row">
+<div align="center" class="col-md-3 mx-auto">
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>S'enregistrer</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+    <div class="input-box">
+        {{ form_row(registrationForm.firstname,{'attr': {'placeholder': 'Prénom'}}) }}
+    </div>
+    <div class="input-box">
+        {{ form_row(registrationForm.lastname,{'attr': {'placeholder': 'Nom'}}) }}
+    </div>
+    <div class="input-box">
+        {{ form_row(registrationForm.email,{'attr': {'placeholder': 'Email'}}) }}
+    </div>
+    <div class="input-box">
+        {{ form_row(registrationForm.plainPassword,{'attr': {'placeholder': 'mot de passe'}}) }}
+        <i class="ri-lock-fill"></i>
+    </div>
+    <div class="remember-forgot">
+        {{ form_row(registrationForm.agreeTerms) }}
+    </div>
+
+        <button type="submit" class="btn btn-primary" formnovalidate>S'Enregistrer</button>
+    <div class="register-link">
+    <p>Vous avez un compte ?<a href="{{ path("app_login") }}">Connexion</a></p>
+    </div>
+    {{ form_end(registrationForm) }}
+    </div>
+    </div>
+{% endblock %}
